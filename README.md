@@ -31,7 +31,7 @@ Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaste
 1. Obtain your [Datadog API key][2].
 2. Add the Datadog class to your node manifests (eg: `/etc/puppetlabs/code/environments/production/manifests/site.pp`).
 
-    ```conf
+    ```ruby
     class { 'datadog_agent':
         api_key => "<YOUR_DD_API_KEY>",
     }
@@ -39,7 +39,7 @@ Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaste
 
     If using a Datadog site other than the default 'datadoghq.com', set it here as well:
 
-    ```conf
+    ```ruby
     class { 'datadog_agent':
         api_key => "<YOUR_DD_API_KEY>",
         datadog_site => "datadoghq.eu",
@@ -48,7 +48,7 @@ Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaste
 
     For CentOS/RHEL versions <7.0 and for Ubuntu < 15.04, specify the service provider as `upstart`:
 
-    ```conf
+    ```ruby
     class { 'datadog_agent':
         api_key => "<YOUR_DD_API_KEY>",
         service_provider => 'upstart'
@@ -59,7 +59,7 @@ Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaste
 
 4. (Optional) Include any integrations you want to use with the Agent. The following example installs the mongo integration:
 
-    ```conf
+    ```ruby
     class { 'datadog_agent::integrations::mongo':
         # integration arguments go here
     }
@@ -69,7 +69,7 @@ Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaste
 
     If an integration does not have a [manifest with a dedicated class][7], you can still add a configuration for it. Below is an example for the `ntp` check:
 
-    ```conf
+    ```ruby
     class { 'datadog_agent':
         api_key      => "<YOUR_DD_API_KEY>",
         integrations => {
@@ -89,7 +89,7 @@ Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaste
 
 To install and pin specific integration versions, use `datadog_agent::install_integration`. This calls the `datadog-agent integration` command to ensure a specific integration is installed or uninstalled, for example:
 
-```conf
+```ruby
 datadog_agent::install_integration { "mongo-1.9":
     ensure => present,
     integration_name => 'datadog-mongo',
